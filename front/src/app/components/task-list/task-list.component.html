@@ -1,0 +1,62 @@
+<div class="p-6 bg-gray-50 rounded-lg shadow-md">
+    <h2 class="text-3xl font-bold mb-4 text-blue-600">Lista de Tareas</h2>
+
+    <form (ngSubmit)="addTask()" class="mb-6 p-4 bg-white rounded-lg shadow-md">
+      <div class="mb-4">
+        <input 
+          type="text" 
+          [(ngModel)]="newTask.title" 
+          name="title" 
+          placeholder="Título" 
+          required 
+          class="border border-gray-300 rounded-md p-3 w-full focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-300"
+        />
+      </div>
+      <div class="mb-4">
+        <input 
+          type="text" 
+          [(ngModel)]="newTask.description" 
+          name="description" 
+          placeholder="Descripción" 
+          class="border border-gray-300 rounded-md p-3 w-full focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-300"
+        />
+      </div>
+      
+      <div class="mb-4">
+        <select 
+          [(ngModel)]="newTask.category" 
+          name="category" 
+          required 
+          class="border border-gray-300 rounded-md p-3 w-full focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-300"
+        >
+          <option value="" disabled selected>Selecciona una categoría</option>
+          <option *ngFor="let category of categories" [value]="category">{{ category }}</option>
+        </select>
+      </div>
+  
+      <button 
+        type="submit" 
+        class="bg-blue-600 text-white rounded-md px-6 py-2 hover:bg-blue-700 transition duration-300"
+      >
+        Agregar Tarea
+      </button>
+    </form>
+  
+    <ul class="space-y-4">
+      <li *ngFor="let task of tasks" class="flex items-center justify-between p-4 border border-gray-300 rounded-md bg-white shadow-sm hover:shadow-lg transition duration-300">
+        <div>
+          <h3 class="text-xl font-semibold text-blue-600">{{ task.title }}</h3>
+          <p class="text-gray-700">{{ task.description }}</p>
+          <p class="text-sm text-gray-500">Categoría: {{ task.category }}</p>
+          <p class="text-sm text-gray-500">Fecha de Creación: {{ task.creation_date | date:'shortDate' }}</p>
+        </div>
+        <button 
+          (click)="deleteTaskIfExists(task.id)" 
+          class="text-red-600 hover:text-red-800 transition duration-300"
+        >
+          Eliminar
+        </button>
+      </li>
+    </ul>
+  </div>
+  
